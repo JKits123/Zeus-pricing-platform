@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZEUS - Equipment Selection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8fffe 0%, #e8f5f0 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border-top: 4px solid #00B04F;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #00B04F 0%, #009944 100%);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .company-logo {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo {
+            font-size: 42px;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+            margin-top: 5px;
+            color: #f0f8ff;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .project-summary {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #00B04F;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00B04F;
+            margin-bottom: 15px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 4px;
+            border-left: 4px solid #00B04F;
+        }
+
+        .summary-label {
+            font-weight: 600;
+            color: #999999;
+        }
+
+        .summary-value {
+            font-weight: bold;
+            color: #00B04F;
+        }
+
+        .equipment-section {
+            margin-bottom: 40px;
+        }
+
+        .manufacturer-card {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .manufacturer-card:hover {
+            border-color: #00B04F;
+            box-shadow: 0 4px 12px rgba(0, 176, 79, 0.1);
+        }
+
+        .manufacturer-header {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 15px 20px;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .manufacturer-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #00B04F;
+        }
+
+        .discount-badge {
+            background: #00B04F;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .equipment-card {
+            border: 2px solid #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .equipment-card:hover {
+            border-color: #00B04F;
+            background: #f8fff8;
+        }
+
+        .equipment-card.selected {
+            border-color: #00B04F;
+            background: #f0f8f4;
+            box-shadow: 0 0 0 3px rgba(0, 176, 79, 0.1);
+        }
+
+        .equipment-model {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00B04F;
+            margin-bottom: 10px;
+        }
+
+        .equipment-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .spec-label {
+            color: #999999;
+            font-weight: 600;
+        }
+
+        .spec-value {
+            color: #00B04F;
+            font-weight: bold;
+        }
+
+        .pricing-section {
+            border-top: 1px solid #e9ecef;
+            padding-top: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .price-item {
+            text-align: center;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .list-price {
+            background: #ffebee;
+            border: 1px solid #e74c3c;
+        }
+
+        .discount-price {
+            background: #e3f2fd;
+            border: 1px solid #3498db;
+        }
+
+        .your-price {
+            background: #e8f5e8;
+            border: 1px solid #27ae60;
+        }
+
+        .price-label {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .price-value {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .cost-indicator {
+            color: #e74c3c;
+        }
+
+        .profit-indicator {
+            color: #3498db;
+        }
+
+        .sale-indicator {
+            color: #27ae60;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .back-btn {
+            background: #999999;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #777777;
+        }
+
+        .continue-btn {
+            background: linear-gradient(135deg, #00B04F 0%, #009944 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .continue-btn.enabled {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .continue-btn.enabled:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 176, 79, 0.3);
+        }
+
+        .selection-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #00B04F;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .equipment-card {
+            position: relative;
+        }
+
+        .equipment-card.selected .selection-indicator {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .equipment-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-section">
+                <div class="company-logo">Current Development Limited</div>
+                <div style="border-left: 2px solid rgba(255,255,255,0.3); height: 40px;"></div>
+                <div>
+                    <div class="logo">ZEUS</div>
+                    <div class="subtitle">Equipment Selection</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="cost-indicator">■</span>
+                    <span>List Price</span>
+                </div>
+                <div class="legend-item">
+                    <span class="profit-indicator">■</span>
+                    <span>Your Discount</span>
+                </div>
+                <div class="legend-item">
+                    <span class="sale-indicator">■</span>
+                    <span>Your Cost Price</span>
+                </div>
+            </div>
+
+            <!-- Project Summary -->
+            <div class="project-summary">
+                <div class="summary-title">Project Specifications</div>
+                <div class="summary-grid" id="projectSummary">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Equipment Selection -->
+            <div class="equipment-section">
+                <h2 style="color: #00B04F; margin-bottom: 25px;">Select Equipment</h2>
+                
+                <!-- Daikin -->
+                <div class="manufacturer-card">
+                    <div class="manufacturer-header">
+                        <div class="manufacturer-name">DAIKIN</div>
+                        <div class="discount-badge">22% Discount (Splits/Designer/SkyAir)</div>
+                    </div>
+                    <div class="equipment-grid" id="daikinEquipment">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Mitsubishi Electric -->
+                <div class="manufacturer-card">
+                    <div class="manufacturer-header">
+                        <div class="manufacturer-name">MITSUBISHI ELECTRIC</div>
+                        <div class="discount-badge">10% Discount (M Series/Mr Slim)</div>
+                    </div>
+                    <div class="equipment-grid" id="mitsubishiElectricEquipment">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Mitsubishi Heavy Industries -->
+                <div class="manufacturer-card">
+                    <div class="manufacturer-header">
+                        <div class="manufacturer-name">MITSUBISHI HEAVY INDUSTRIES (MHI)</div>
+                        <div class="discount-badge">35% Discount (PAC & RAC Ranges)</div>
+                    </div>
+                    <div class="equipment-grid" id="mhiEquipment">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Fujitsu -->
+                <div class="manufacturer-card">
+                    <div class="manufacturer-header">
+                        <div class="manufacturer-name">FUJITSU</div>
+                        <div class="discount-badge">TBC% Discount</div>
+                    </div>
+                    <div class="equipment-grid" id="fujitsuEquipment">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button class="back-btn" onclick="goBack()">← Back to Project Details</button>
+                <button class="continue-btn" id="continueBtn" onclick="continueToMaterials()">Continue to Materials →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Equipment database with comprehensive models
+        const equipmentDatabase = {
+            daikin: {
+                discount: 22,
+                ranges: ['Standard Split', 'Designer Range', 'SkyAir'],
+                models: [
+                    {
+                        model: 'FTXS25K / RXS25L',
+                        capacity: 2.5,
+                        unitType: 'wall-mounted',
+                        maxPipeRun: 20,
+                        range: 'Standard Split',
+                        listPrice: 1250,
+                        specifications: {
+                            'Energy Rating': 'A++',
+                            'Sound Level': '19 dB(A)',
+                            'Refrigerant': 'R32',
+                            'Max Pipe Run': '20m'
+                        }
+                    },
+                    {
+                        model: 'FTXS35K / RXS35L',
+                        capacity: 3.5,
+                        unitType: 'wall-mounted',
+                        maxPipeRun: 25,
+                        range: 'Standard Split',
+                        listPrice: 1450,
+                        specifications: {
+                            'Energy Rating': 'A++',
+                            'Sound Level': '21 dB(A)',
+                            'Refrigerant': 'R32',
+                            'Max Pipe Run': '25m'
+                        }
+                    },
+                    {
+                        model: 'FTXS50K / RXS50L',
+                        capacity: 5.0,
+                        unitType: 'wall-mounted',
+                        maxPipeRun: 30,
+                        range: 'Standard Split',
+                        listPrice: 1850,
+                        specifications: {
+                            'Energy Rating': 'A++',
+                            'Sound Level': '23 dB(A)',
+                            'Refrigerant': 'R32',
+                            'Max Pipe Run': '30m'
+                        }
+                    },
+                    {
+                        model: 'FCAG25A / RXS25L',
+                        capacity: 2.5,
+                        unitType: 'ceiling-cassette-compact',
+                        maxPipeRun: 20,
+                        range: 'SkyAir',
+                        listPrice: 1680,
+                        specifications: {
+                            'Energy Rating': 'A+',
+                            'Sound Level': '26 dB(A)',
+                            'Refrigerant': 'R32',
+                            'Max Pipe Run': '20m'
+                        }
+                    },
+                    {
+                        model: 'FCAG35A / RXS35L',
+                        capacity: 3.5,
+                        unitType: 'ceiling-cassette-compact',
+                        maxPipeRun: 25,
+                        range: 'SkyAir',
+                        listPrice: 1920,
+                        specifications: {
+                            'Energy Rating': 'A+',
+                            'Sound Level': '28 dB(A)',
+                            'Refrigerant': 'R32',
+                            'Max Pipe Run': '25m'
+                        }
+                    }
+                ]
+            },
+            mitsubishiElectric: {
+                discount: 10,
+                ranges: ['M Series', 'Mr Slim'],
+                models: [
+                    {
+                        model: 'MSZ-LN25VG / MUZ-LN25VG',
+                        capacity: 2.5,
+                        unitType: 'wall-mounted',
+                        maxPipeRun: 15,
+                        range: 'M Series',
+                        listPrice: 1320,
+                        specifications: {
+                            'Energy Rating': 'A+++',
+                            'Sound Level': '19 dB(A)',
+                            'Refrigerant': 'R32',
+                            'Max Pipe Run': '15m'
+                        }
+                    },
+                    {
+                        model: 'MSZ-LN35VG / MUZ-LN35VG',
+                        capacity: 3.5,
+                        unitType: 'wall-mounted',
+                        maxPipeRun: 20,
+                        range: 'M Series',
+                        listPrice: 1520,
+                        specifications: {
+                            'Energy Rating': 'A+++',
+                            'Sound Level': '21 dB(A)',
+                            'Refrigerant': 'R32',
+                            'Max Pipe Run': '20m'
+                        }
+                    },
+                    {
+                        model: 'PLZ-M25VA / PUZ-M25VKA',
+                        capacity: 2.5,
+                        unitType: 'ceiling-cassette-standard',
+                        maxPipeRun: 25,
+                        range: 'Mr Slim',
+                        listPrice: 1780,
+                        specifications: {
+                            'Energy Rating': 'A+',
+                            'Sound Level': '28 dB(A)',
+                            'Refrigerant': 'R410A',
+                            'Max Pipe Run': '25m'
+                        }
+                    }
+                ]
+            },
+            mhi: {
+                discount: 35,
+                ranges: ['PAC Range', 'RAC Range'],
+                models: [
+                    {
+                        model: 'SRK25ZS-S / SRC25ZS-S',
+                        capacity: 2.5,
+                        unitType: 'wall-mounted',
+                        maxPipeRun: 20,
+                        range: 'RAC Range',
+                        listPrice: 1180,
+                        specifications: {
+                            'Energy Rating': 'A++',
+                            'Sound Level': '21 dB(A)',
+                            'Refrigerant': 'R32',
+                            'Max Pipe Run': '20m'
+                        }
+                    },
+                    {
+                        model: 'SRK35ZS-S / SRC35ZS-S',
+                        capacity: 3.5,
+                        unitType: 'wall-mounted',
+                        maxPipeRun: 25,
+                        range: 'RAC Range',
+                        listPrice: 1380,
+                        specifications: {
+                            'Energy Rating': 'A++',
+                            'Sound Level': '23 dB(A)',
+                            'Refrigerant': 'R32',
+                            'Max Pipe Run': '25m'
+                        }
+                    },
+                    {
+                        model: 'FDTC25VF / SRC25ZS-S',
+                        capacity: 2.5,
+                        unitType: 'ducted',
+                        maxPipeRun: 30,
+                        range: 'PAC Range',
+                        listPrice: 2180,
+                        specifications: {
+                            'Energy Rating': 'A+',
+                            'Sound Level': '32 dB(A)',
+                            'Refrigerant': 'R32',
+                            'Max Pipe Run': '30m'
+                        }
+                    }
+                ]
+            },
+            fujitsu: {
+                discount: 0, // TBC
+                ranges: ['General Series', 'Designer Series'],
+                models: [
+                    {
+                        model: 'ASYG09KETA / AOYG09KETA',
+                        capacity: 2.5,
+                        unitType: 'wall-mounted',
+                        maxPipeRun: 15,
+                        range: 'General Series',
+                        listPrice: 1290,
+                        specifications: {
+                            'Energy Rating': 'A++',
+                            'Sound Level': '20 dB(A)',
+                            'Refrigerant': 'R32',
+                            'Max Pipe Run': '15m'
+                        }
+                    },
+                    {
+                        model: 'ASYG12KETA / AOYG12KETA',
+                        capacity: 3.5,
+                        unitType: 'wall-mounted',
+                        maxPipeRun: 20,
+                        range: 'General Series',
+                        listPrice: 1490,
+                        specifications: {
+                            'Energy Rating': 'A++',
+                            'Sound Level': '22 dB(A)',
+                            'Refrigerant': 'R32',
+                            'Max Pipe Run': '20m'
+                        }
+                    }
+                ]
+            }
+        };
+
+        let selectedEquipment = null;
+        let projectData = {};
+
+        // Load project data from page 1
+        function loadProjectData() {
+            const data = localStorage.getItem('hvacProjectData');
+            if (data) {
+                projectData = JSON.parse(data);
+                displayProjectSummary();
+                filterAndDisplayEquipment();
+            }
+        }
+
+        function displayProjectSummary() {
+            const summaryContainer = document.getElementById('projectSummary');
+            summaryContainer.innerHTML = `
+                <div class="summary-item">
+                    <span class="summary-label">Customer:</span>
+                    <span class="summary-value">${projectData.customerName || 'N/A'}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Capacity:</span>
+                    <span class="summary-value">${projectData.capacity || 'N/A'} kW</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Unit Type:</span>
+                    <span class="summary-value">${formatUnitType(projectData.indoorUnitType)}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Pipe Run:</span>
+                    <span class="summary-value">${projectData.pipeLength || 'N/A'}m</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Zone Type:</span>
+                    <span class="summary-value">${formatZoneType(projectData.zoneType)}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Drainage:</span>
+                    <span class="summary-value">${formatDrainage(projectData.drainageMethod)}</span>
+                </div>
+            `;
+        }
+
+        function formatUnitType(type) {
+            const types = {
+                'wall-mounted': 'Wall Mounted',
+                'ceiling-cassette-compact': 'Ceiling Cassette (Compact)',
+                'ceiling-cassette-standard': 'Ceiling Cassette (Standard)',
+                'ducted': 'Ducted',
+                'floor-standing': 'Floor Standing',
+                'ceiling-suspended': 'Ceiling Suspended'
+            };
+            return types[type] || type;
+        }
+
+        function formatZoneType(type) {
+            return type === 'single-zone' ? 'Single Zone' : 'Multi Zone';
+        }
+
+        function formatDrainage(method) {
+            return method === 'gravity' ? 'Gravity' : 'Pumped';
+        }
+
+        function filterAndDisplayEquipment() {
+            const capacity = parseFloat(projectData.capacity);
+            const unitType = projectData.indoorUnitType;
+            const pipeLength = parseInt(projectData.pipeLength);
+
+            // Filter equipment for each manufacturer
+            Object.keys(equipmentDatabase).forEach(manufacturer => {
+                const manufacturerData = equipmentDatabase[manufacturer];
+                const suitableModels = manufacturerData.models.filter(model => {
+                    return model.unitType === unitType && 
+                           model.maxPipeRun >= pipeLength &&
+                           Math.abs(model.capacity - capacity) <= 0.5; // Within 0.5kW tolerance
+                });
+
+                displayManufacturerEquipment(manufacturer, suitableModels, manufacturerData.discount);
+            });
+        }
+
+        function displayManufacturerEquipment(manufacturer, models, discount) {
+            const containerId = manufacturer === 'mitsubishiElectric' ? 'mitsubishiElectricEquipment' : 
+                               manufacturer === 'mhi' ? 'mhiEquipment' : 
+                               manufacturer + 'Equipment';
+            const container = document.getElementById(containerId);
+            
+            if (models.length === 0) {
+                container.innerHTML = '<p style="padding: 20px; text-align: center; color: #999999;">No suitable models found for your specifications</p>';
+                return;
+            }
+
+            container.innerHTML = models.map(model => {
+                const listPrice = model.listPrice;
+                const discountAmount = discount > 0 ? (listPrice * discount / 100) : 0;
+                const yourPrice = listPrice - discountAmount;
+
+                return `
+                    <div class="equipment-card" data-manufacturer="${manufacturer}" data-model="${model.model}" onclick="selectEquipment(this, '${manufacturer}', '${model.model}')">
+                        <div class="selection-indicator">✓</div>
+                        <div class="equipment-model">${model.model}</div>
+                        <div class="equipment-specs">
+                            ${Object.entries(model.specifications).map(([key, value]) => `
+                                <div class="spec-item">
+                                    <span class="spec-label">${key}:</span>
+                                    <span class="spec-value">${value}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="pricing-section">
+                            <div class="price-item list-price">
+                                <div class="price-label cost-indicator">List Price</div>
+                                <div class="price-value cost-indicator">£${listPrice.toLocaleString()}</div>
+                            </div>
+                            <div class="price-item discount-price">
+                                <div class="price-label profit-indicator">${discount}% Discount</div>
+                                <div class="price-value profit-indicator">-£${discountAmount.toLocaleString()}</div>
+                            </div>
+                            <div class="price-item your-price">
+                                <div class="price-label sale-indicator">Your Price</div>
+                                <div class="price-value sale-indicator">£${yourPrice.toLocaleString()}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectEquipment(element, manufacturer, model) {
+            // Remove previous selection
+            document.querySelectorAll('.equipment-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            // Add selection to clicked card
+            element.classList.add('selected');
+
+            // Store selection
+            const manufacturerData = equipmentDatabase[manufacturer];
+            const modelData = manufacturerData.models.find(m => m.model === model);
+            
+            selectedEquipment = {
+                manufacturer: manufacturer,
+                model: model,
+                data: modelData,
+                discount: manufacturerData.discount,
+                listPrice: modelData.listPrice,
+                discountAmount: modelData.listPrice * manufacturerData.discount / 100,
+                yourPrice: modelData.listPrice - (modelData.listPrice * manufacturerData.discount / 100)
+            };
+
+            // Enable continue button
+            const continueBtn = document.getElementById('continueBtn');
+            continueBtn.classList.add('enabled');
+
+            console.log('Selected Equipment:', selectedEquipment);
+        }
+
+        function goBack() {
+            // In a real application, this would navigate back to page 1
+            alert('Going back to project details...');
+        }
+
+        function continueToMaterials() {
+            if (!selectedEquipment) {
+                alert('Please select equipment before continuing.');
+                return;
+            }
+
+            // Save selection and continue to materials page
+            const completeProjectData = {
+                ...projectData,
+                selectedEquipment: selectedEquipment
+            };
+            
+            localStorage.setItem('hvacProjectData', JSON.stringify(completeProjectData));
+            alert(`Equipment selected: ${selectedEquipment.model}\nYour Price: £${selectedEquipment.yourPrice.toLocaleString()}\n\nReady to proceed to materials selection!`);
+        }
+
+        // Initialize page
+        window.addEventListener('load', loadProjectData);
+    </script>
+</body>
+</html>
