@@ -532,6 +532,432 @@
                                         <option value="1">1 day</option>
                                         <option value="3">3 days</option>
                                         <option value="7">1 week</option>
+                                    </select>
+                                </div>
+                                <div class="equipment-item">
+                                    <input type="checkbox" class="equipment-checkbox" onchange="updateHireSelection(this, 'pipe_bender')">
+                                    <div class="equipment-name">Pipe Bender Kit</div>
+                                    <div class="equipment-rate">£30/day</div>
+                                    <input type="number" class="quantity-input" placeholder="Qty" min="1" value="1">
+                                    <select class="duration-select">
+                                        <option value="1">1 day</option>
+                                        <option value="3">3 days</option>
+                                        <option value="7">1 week</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Manual Handling -->
+                        <div class="category-card">
+                            <div class="category-header">📦 Manual Handling</div>
+                            <div class="equipment-list">
+                                <div class="equipment-item">
+                                    <input type="checkbox" class="equipment-checkbox" onchange="updateHireSelection(this, 'mini_crane')">
+                                    <div class="equipment-name">Mini Crane 1.5T</div>
+                                    <div class="equipment-rate">£150/day</div>
+                                    <input type="number" class="quantity-input" placeholder="Qty" min="1" value="1">
+                                    <select class="duration-select">
+                                        <option value="1">1 day</option>
+                                        <option value="3">3 days</option>
+                                        <option value="7">1 week</option>
+                                    </select>
+                                </div>
+                                <div class="equipment-item">
+                                    <input type="checkbox" class="equipment-checkbox" onchange="updateHireSelection(this, 'winch_system')">
+                                    <div class="equipment-name">Winch System</div>
+                                    <div class="equipment-rate">£55/day</div>
+                                    <input type="number" class="quantity-input" placeholder="Qty" min="1" value="1">
+                                    <select class="duration-select">
+                                        <option value="1">1 day</option>
+                                        <option value="3">3 days</option>
+                                        <option value="7">1 week</option>
+                                    </select>
+                                </div>
+                                <div class="equipment-item">
+                                    <input type="checkbox" class="equipment-checkbox" onchange="updateHireSelection(this, 'pallet_truck')">
+                                    <div class="equipment-name">Pallet Truck</div>
+                                    <div class="equipment-rate">£25/day</div>
+                                    <input type="number" class="quantity-input" placeholder="Qty" min="1" value="1">
+                                    <select class="duration-select">
+                                        <option value="1">1 day</option>
+                                        <option value="3">3 days</option>
+                                        <option value="7">1 week</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Transportation -->
+                        <div class="category-card">
+                            <div class="category-header">🚛 Transportation</div>
+                            <div class="equipment-list">
+                                <div class="equipment-item">
+                                    <input type="checkbox" class="equipment-checkbox" onchange="updateHireSelection(this, 'delivery_charge')">
+                                    <div class="equipment-name">Delivery Charge</div>
+                                    <div class="equipment-rate">£45/trip</div>
+                                    <input type="number" class="quantity-input" placeholder="Qty" min="1" value="1">
+                                    <select class="duration-select">
+                                        <option value="1">Single</option>
+                                        <option value="2">Return</option>
+                                    </select>
+                                </div>
+                                <div class="equipment-item">
+                                    <input type="checkbox" class="equipment-checkbox" onchange="updateHireSelection(this, 'off_hire_charge')">
+                                    <div class="equipment-name">Off-Hire Collection</div>
+                                    <div class="equipment-rate">£35/trip</div>
+                                    <input type="number" class="quantity-input" placeholder="Qty" min="1" value="1">
+                                    <select class="duration-select">
+                                        <option value="1">Standard</option>
+                                        <option value="2">Priority</option>
+                                    </select>
+                                </div>
+                                <div class="equipment-item">
+                                    <input type="checkbox" class="equipment-checkbox" onchange="updateHireSelection(this, 'damage_waiver')">
+                                    <div class="equipment-name">Damage Waiver</div>
+                                    <div class="equipment-rate">10% of hire</div>
+                                    <input type="number" class="quantity-input" placeholder="Qty" min="1" value="1">
+                                    <select class="duration-select">
+                                        <option value="1">Per item</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preliminaries Section -->
+                <div class="section preliminaries-section">
+                    <div class="section-title">
+                        📋 Project Preliminaries
+                        <span style="font-size: 14px; color: #666;">(Client requirements, location factors, working conditions)</span>
+                    </div>
+
+                    <!-- Documentation Requirements -->
+                    <div class="question-card">
+                        <div class="question-header">📄 Documentation Requirements</div>
+                        <div class="question-options">
+                            <div class="option-item" onclick="selectOption(this, 'docs', 'none', 0)">
+                                <span class="option-text">Standard job - no special documentation</span>
+                                <span class="option-cost">£0</span>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'docs', 'method', 150)">
+                                <span class="option-text">Method Statement required</span>
+                                <span class="option-cost">£150</span>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'docs', 'risk', 200)">
+                                <span class="option-text">Risk Assessment & Method Statement</span>
+                                <span class="option-cost">£200</span>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'docs', 'permit', 350)">
+                                <span class="option-text">Full permit system compliance</span>
+                                <span class="option-cost">£350</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location & Travel -->
+                    <div class="question-card">
+                        <div class="question-header">📍 Location & Travel Considerations</div>
+                        <div class="question-options">
+                            <div class="option-item" onclick="selectOption(this, 'location', 'local', 0)">
+                                <span class="option-text">Local job (within 30min / 20 miles)</span>
+                                <span class="option-cost">£0</span>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'location', 'medium', 120)">
+                                <span class="option-text">Medium distance (30-60min journey)</span>
+                                <span class="option-cost">£120</span>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'location', 'london', 200)">
+                                <span class="option-text">Central London (1.5hr each way)</span>
+                                <span class="option-cost">£200</span>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'location', 'remote', 300)">
+                                <span class="option-text">Remote location (2hr+ each way)</span>
+                                <span class="option-cost">£300</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Working Conditions -->
+                    <div class="question-card">
+                        <div class="question-header">⏰ Working Conditions & Restrictions</div>
+                        <div class="question-options">
+                            <div class="option-item" onclick="selectOption(this, 'conditions', 'normal', 0)">
+                                <span class="option-text">Normal working hours, no restrictions</span>
+                                <span class="option-cost">£0</span>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'conditions', 'hours', 150)">
+                                <span class="option-text">Out of hours working required</span>
+                                <span class="option-cost">£150</span>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'conditions', 'noise', 100)">
+                                <span class="option-text">Noise restrictions apply</span>
+                                <span class="option-cost">£100</span>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'conditions', 'height', 200)">
+                                <span class="option-text">All work at height (complex access)</span>
+                                <span class="option-cost">£200</span>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'conditions', 'complex', 400)">
+                                <span class="option-text">Multiple restrictions (hours + noise + height)</span>
+                                <span class="option-cost">£400</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Parking & Congestion -->
+                    <div class="question-card">
+                        <div class="question-header">🚗 Parking & Congestion Charges</div>
+                        <div class="question-options">
+                            <div class="option-item" onclick="selectOption(this, 'parking', 'free', 0)">
+                                <span class="option-text">Free parking available</span>
+                                <span class="option-cost">£0</span>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'parking', 'paid', 50)">
+                                <span class="option-text">Paid parking (£20-30/day estimated)</span>
+                                <span class="option-cost">£50</span>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'parking', 'congestion', 100)">
+                                <span class="option-text">London congestion charge area</span>
+                                <span class="option-cost">£100</span>
+                            </div>
+                            <div class="option-item" onclick="selectOption(this, 'parking', 'both', 150)">
+                                <span class="option-text">Paid parking + congestion charges</span>
+                                <span class="option-cost">£150</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button class="back-btn" onclick="goBack()">← Back to Labour</button>
+                    <button class="continue-btn" onclick="continueToSummary()">Continue to Final Summary →</button>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <!-- Discount Control -->
+                <div class="discount-control">
+                    <h4>💰 Hire Discount Rate</h4>
+                    <input type="number" class="discount-input" id="hireDiscount" value="15" min="0" max="50" onchange="updateHireDiscount()">
+                    <span style="color: #3498db; font-weight: bold;">%</span>
+                </div>
+
+                <!-- Hire Summary -->
+                <div class="hire-summary">
+                    <h3>🚧 Hire Summary</h3>
+                    
+                    <div class="summary-section">
+                        <h4>Selected Equipment</h4>
+                        <div id="selectedEquipmentList">
+                            <p style="text-align: center; color: #999; padding: 10px;">No equipment selected</p>
+                        </div>
+                    </div>
+
+                    <div class="summary-total cost-total">
+                        <span>Equipment Hire Cost:</span>
+                        <span id="hireCost">£0.00</span>
+                    </div>
+                    <div class="summary-total profit-total">
+                        <span>Profit (Discount Applied):</span>
+                        <span id="hireProfit">£0.00</span>
+                    </div>
+                    <div class="summary-total sale-total">
+                        <span>Hire Charge Out:</span>
+                        <span id="hireChargeOut">£0.00</span>
+                    </div>
+                </div>
+
+                <!-- Preliminaries Summary -->
+                <div class="hire-summary">
+                    <h3>📋 Preliminaries Summary</h3>
+                    
+                    <div class="summary-section">
+                        <h4>Selected Options</h4>
+                        <div id="preliminariesList">
+                            <p style="text-align: center; color: #999; padding: 10px;">No options selected</p>
+                        </div>
+                    </div>
+
+                    <div class="summary-total cost-total">
+                        <span>Preliminaries Cost:</span>
+                        <span id="preliminariesCost">£0.00</span>
+                    </div>
+                    <div class="summary-total profit-total">
+                        <span>Profit (35%):</span>
+                        <span id="preliminariesProfit">£0.00</span>
+                    </div>
+                    <div class="summary-total sale-total">
+                        <span>Preliminaries Total:</span>
+                        <span id="preliminariesTotal">£0.00</span>
+                    </div>
+                </div>
+
+                <!-- Grand Total -->
+                <div class="hire-summary">
+                    <h3>💰 Page Total</h3>
+                    <div class="summary-total sale-total">
+                        <span>Hire & Preliminaries:</span>
+                        <span id="pageGrandTotal">£0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedHire = {};
+        let selectedPreliminaries = {};
+        let hireDiscount = 15;
+        let profitMargin = 35;
+
+        function updateHireSelection(checkbox, equipmentId) {
+            const row = checkbox.closest('.equipment-item');
+            const quantity = parseInt(row.querySelector('.quantity-input').value) || 1;
+            const duration = parseInt(row.querySelector('.duration-select').value) || 1;
+            const ratePer = parseFloat(row.querySelector('.equipment-rate').textContent.replace('£', '').replace('/day', '').replace('/trip', '')) || 0;
+
+            if (checkbox.checked) {
+                row.classList.add('selected');
+                selectedHire[equipmentId] = {
+                    name: row.querySelector('.equipment-name').textContent,
+                    ratePer: ratePer,
+                    quantity: quantity,
+                    duration: duration,
+                    totalCost: ratePer * quantity * duration
+                };
+            } else {
+                row.classList.remove('selected');
+                delete selectedHire[equipmentId];
+            }
+
+            updateHireSummary();
+        }
+
+        function selectOption(element, category, option, cost) {
+            // Remove previous selection in this category
+            element.parentElement.querySelectorAll('.option-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+
+            // Add selection to clicked item
+            element.classList.add('selected');
+
+            // Store selection
+            selectedPreliminaries[category] = {
+                option: option,
+                cost: cost,
+                description: element.querySelector('.option-text').textContent
+            };
+
+            updatePreliminariesSummary();
+        }
+
+        function updateHireDiscount() {
+            hireDiscount = parseFloat(document.getElementById('hireDiscount').value) || 15;
+            updateHireSummary();
+        }
+
+        function updateHireSummary() {
+            const equipmentList = document.getElementById('selectedEquipmentList');
+            let totalHireCost = 0;
+
+            if (Object.keys(selectedHire).length === 0) {
+                equipmentList.innerHTML = '<p style="text-align: center; color: #999; padding: 10px;">No equipment selected</p>';
+            } else {
+                let html = '';
+                Object.values(selectedHire).forEach(item => {
+                    html += `
+                        <div class="summary-item">
+                            <span>${item.name} (${item.quantity}x ${item.duration}d)</span>
+                            <span class="cost-value">£${item.totalCost.toFixed(2)}</span>
+                        </div>
+                    `;
+                    totalHireCost += item.totalCost;
+                });
+                equipmentList.innerHTML = html;
+            }
+
+            const discountAmount = totalHireCost * (hireDiscount / 100);
+            const actualCost = totalHireCost - discountAmount;
+            const profit = actualCost * (profitMargin / 100);
+            const chargeOut = actualCost + profit;
+
+            document.getElementById('hireCost').textContent = `£${actualCost.toFixed(2)}`;
+            document.getElementById('hireProfit').textContent = `£${profit.toFixed(2)}`;
+            document.getElementById('hireChargeOut').textContent = `£${chargeOut.toFixed(2)}`;
+
+            updatePageTotal();
+        }
+
+        function updatePreliminariesSummary() {
+            const preliminariesList = document.getElementById('preliminariesList');
+            let totalPrelimCost = 0;
+
+            if (Object.keys(selectedPreliminaries).length === 0) {
+                preliminariesList.innerHTML = '<p style="text-align: center; color: #999; padding: 10px;">No options selected</p>';
+            } else {
+                let html = '';
+                Object.values(selectedPreliminaries).forEach(item => {
+                    html += `
+                        <div class="summary-item">
+                            <span style="font-size: 12px;">${item.description}</span>
+                            <span class="cost-value">£${item.cost.toFixed(2)}</span>
+                        </div>
+                    `;
+                    totalPrelimCost += item.cost;
+                });
+                preliminariesList.innerHTML = html;
+            }
+
+            const profit = totalPrelimCost * (profitMargin / 100);
+            const total = totalPrelimCost + profit;
+
+            document.getElementById('preliminariesCost').textContent = `£${totalPrelimCost.toFixed(2)}`;
+            document.getElementById('preliminariesProfit').textContent = `£${profit.toFixed(2)}`;
+            document.getElementById('preliminariesTotal').textContent = `£${total.toFixed(2)}`;
+
+            updatePageTotal();
+        }
+
+        function updatePageTotal() {
+            const hireCost = parseFloat(document.getElementById('hireChargeOut').textContent.replace('£', '').replace(',', '')) || 0;
+            const preliminariesCost = parseFloat(document.getElementById('preliminariesTotal').textContent.replace('£', '').replace(',', '')) || 0;
+            const pageTotal = hireCost + preliminariesCost;
+
+            document.getElementById('pageGrandTotal').textContent = `£${pageTotal.toFixed(2)}`;
+        }
+
+        function goBack() {
+            alert('Going back to labour allocation...');
+        }
+
+        function continueToSummary() {
+            // Save hire and preliminaries data
+            const projectData = JSON.parse(localStorage.getItem('hvacProjectData') || '{}');
+            
+            const completeProjectData = {
+                ...projectData,
+                hireEquipment: selectedHire,
+                preliminaries: selectedPreliminaries,
+                hireDiscount: hireDiscount
+            };
+            
+            localStorage.setItem('hvacProjectData', JSON.stringify(completeProjectData));
+            alert('Hire & Preliminaries complete! Ready for final project summary.');
+        }
+
+        // Initialize page
+        window.addEventListener('load', function() {
+            updateHireSummary();
+            updatePreliminariesSummary();
+        });
+    </script>
+</body>
+</html>
+                                        <option value="3">3 days</option>
+                                        <option value="7">1 week</option>
                                         <option value="14">2 weeks</option>
                                     </select>
                                 </div>
