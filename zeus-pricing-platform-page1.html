@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZEUS - HVAC Smart Pricing Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8fffe 0%, #e8f5f0 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border-top: 4px solid #00B04F;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #00B04F 0%, #009944 100%);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .company-logo {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo {
+            font-size: 42px;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+            margin-top: 5px;
+            color: #f0f8ff;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+            padding: 25px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            background: #fafbfc;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #00B04F;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #00B04F;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: 600;
+            color: #00B04F;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input, select, textarea {
+            padding: 12px;
+            border: 2px solid #999999;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #00B04F;
+            box-shadow: 0 0 0 3px rgba(0, 176, 79, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .job-questions {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+            border: 2px solid #e74c3c;
+        }
+
+        .job-questions .section-title {
+            color: #c0392b;
+            border-bottom-color: #e74c3c;
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .cost-indicator {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .profit-indicator {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .sale-indicator {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-option input[type="radio"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .continue-btn {
+            background: linear-gradient(135deg, #00B04F 0%, #009944 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            float: right;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 176, 79, 0.3);
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-section">
+                <div class="company-logo">Current Development Limited</div>
+                <div style="border-left: 2px solid rgba(255,255,255,0.3); height: 40px;"></div>
+                <div>
+                    <div class="logo">ZEUS</div>
+                    <div class="subtitle">HVAC Smart Pricing Platform</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="cost-indicator">■</span>
+                    <span>Costs</span>
+                </div>
+                <div class="legend-item">
+                    <span class="profit-indicator">■</span>
+                    <span>Profit & Margins</span>
+                </div>
+                <div class="legend-item">
+                    <span class="sale-indicator">■</span>
+                    <span>Sale Price</span>
+                </div>
+            </div>
+
+            <form id="pricingForm">
+                <!-- Customer Details Section -->
+                <div class="section">
+                    <div class="section-title">Customer Details</div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customerName">Customer Name *</label>
+                            <input type="text" id="customerName" name="customerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactNumber">Contact Number *</label>
+                            <input type="tel" id="contactNumber" name="contactNumber" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company Name</label>
+                            <input type="text" id="company" name="company">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="installAddress">Installation Address *</label>
+                            <textarea id="installAddress" name="installAddress" placeholder="Full installation address including postcode" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="billingAddress">Billing Address (if different)</label>
+                            <textarea id="billingAddress" name="billingAddress" placeholder="Leave blank if same as installation address"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Details Section -->
+                <div class="section">
+                    <div class="section-title">Project Details</div>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="scopeOfWork">Scope of Work *</label>
+                            <textarea id="scopeOfWork" name="scopeOfWork" placeholder="Detailed description of the air conditioning installation work required" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="jobEnvironment">Job Environment *</label>
+                            <select id="jobEnvironment" name="jobEnvironment" required>
+                                <option value="">Select environment...</option>
+                                <option value="domestic">Domestic</option>
+                                <option value="commercial">Commercial</option>
+                                <option value="retail">Retail</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="projectDate">Preferred Installation Date</label>
+                            <input type="date" id="projectDate" name="projectDate">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Specifications Section -->
+                <div class="section job-questions">
+                    <div class="section-title">Technical Specifications</div>
+                    
+                    <div class="question-grid">
+                        <div class="form-group">
+                            <label for="capacity">Cooling Capacity (kW) *</label>
+                            <input type="number" id="capacity" name="capacity" step="0.1" min="0.1" placeholder="e.g. 3.5" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="zoneType">System Type *</label>
+                            <select id="zoneType" name="zoneType" required>
+                                <option value="">Select system type...</option>
+                                <option value="single-zone">Single Zone</option>
+                                <option value="multi-zone">Multi Zone</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pipeLength">Pipe Run Length (meters) *</label>
+                            <input type="number" id="pipeLength" name="pipeLength" min="1" placeholder="e.g. 15" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="drainageMethod">Drainage Method *</label>
+                            <select id="drainageMethod" name="drainageMethod" required>
+                                <option value="">Select drainage method...</option>
+                                <option value="gravity">Gravity</option>
+                                <option value="pumped">Pumped</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Indoor Unit Type *</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="wall-mounted" name="indoorUnitType" value="wall-mounted" required>
+                                <label for="wall-mounted">Wall Mounted</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="ceiling-cassette-compact" name="indoorUnitType" value="ceiling-cassette-compact" required>
+                                <label for="ceiling-cassette-compact">Ceiling Cassette (Compact)</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="ceiling-cassette-standard" name="indoorUnitType" value="ceiling-cassette-standard" required>
+                                <label for="ceiling-cassette-standard">Ceiling Cassette (Standard)</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="ducted" name="indoorUnitType" value="ducted" required>
+                                <label for="ducted">Ducted</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="floor-standing" name="indoorUnitType" value="floor-standing" required>
+                                <label for="floor-standing">Floor Standing</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="ceiling-suspended" name="indoorUnitType" value="ceiling-suspended" required>
+                                <label for="ceiling-suspended">Ceiling Suspended</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Containment Method *</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="cable-tray" name="containmentMethod" value="cable-tray" required>
+                                <label for="cable-tray">Cable Tray</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="plastic-trunking" name="containmentMethod" value="plastic-trunking" required>
+                                <label for="plastic-trunking">Plastic Trunking</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="clipped" name="containmentMethod" value="clipped" required>
+                                <label for="clipped">Clipped</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="continue-btn">Continue to Equipment Selection →</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Form validation and data collection
+        document.getElementById('pricingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect all form data
+            const formData = new FormData(this);
+            const data = {};
+            
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            // Store data for next page (in a real app, this would go to a database)
+            localStorage.setItem('hvacProjectData', JSON.stringify(data));
+            
+            // Show success message (replace with navigation to next page)
+            alert('Project details saved! Ready to proceed to equipment selection.\n\nCapacity: ' + data.capacity + 'kW\nUnit Type: ' + data.indoorUnitType + '\nPipe Run: ' + data.pipeLength + 'm');
+            
+            console.log('Project Data:', data);
+        });
+
+        // Auto-save form data as user types
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('change', function() {
+                const formData = new FormData(document.getElementById('pricingForm'));
+                const data = {};
+                
+                for (let [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
+                
+                localStorage.setItem('hvacProjectDataDraft', JSON.stringify(data));
+            });
+        });
+
+        // Load any existing draft data
+        window.addEventListener('load', function() {
+            const draftData = localStorage.getItem('hvacProjectDataDraft');
+            if (draftData) {
+                const data = JSON.parse(draftData);
+                
+                for (let [key, value] of Object.entries(data)) {
+                    const element = document.querySelector(`[name="${key}"]`);
+                    if (element) {
+                        if (element.type === 'radio') {
+                            const radioButton = document.querySelector(`[name="${key}"][value="${value}"]`);
+                            if (radioButton) radioButton.checked = true;
+                        } else {
+                            element.value = value;
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
